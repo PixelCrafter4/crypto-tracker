@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { fetchCryptos } from "./cryptoApi";
-import type { Crypto } from "./Crypto";
-import CryptoCard from "./components/CryptoCard";
+import { Link } from "react-router-dom";
+import { fetchCryptos } from "../cryptoApi";
+import type { Crypto } from "../Crypto";
+import CryptoCard from "../components/CryptoCard";
 
-function App() {
+function HomePage() {
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,11 +49,13 @@ function App() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredCryptos.map(crypto => (
-          <CryptoCard key={crypto.id} crypto={crypto} />
+          <Link to={`/crypto/${crypto.id}`} key={crypto.id}>
+            <CryptoCard crypto={crypto} />
+          </Link>
         ))}
       </div>
     </div>
   );
 }
 
-export default App;
+export default HomePage;
